@@ -1,10 +1,10 @@
 const User = require("../Model/User/User");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
-const appErr = require("../Utils/appErr");
 const Post = require("../Model/Post/Post");
 const categoryRouter = require("../Route/categoryRoutes");
 const Comment = require("../Model/Comment/Comment");
+const appErr = require("../Utils/appErr");
 // const Category = require("../Model/Category/Category");
 
 

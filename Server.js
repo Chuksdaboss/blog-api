@@ -6,6 +6,7 @@ const commentRouter = require("./Route/commentRoutes");
 const categoryRouter = require("./Route/categoryRoutes");
 const { applyDefaults } = require("./Model/User/User");
 const globalErrHandler = require("./middlewares/globalErrHandler");
+const isLogin = require("./middlewares/isLogin");
 // const app = express()
 require("dotenv").config()
 require("./Config/dbConnect")
@@ -14,8 +15,20 @@ require("./Config/dbConnect")
 const app = express();
 
 //Middleware
-app.use(express.json())
-
+app.use(express.json());
+const userAuth = {
+    isLogin: true,
+    isAdmin: false,
+};
+app.use((req, res, next) => {
+    if (userAuth.isLogin) {
+        next();
+    } else {
+        return res.json({
+            msg: "invalid login credentials",
+        });
+    }
+});
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/post", postRouter);
 app.use("/api/v1/comment",commentRouter);
